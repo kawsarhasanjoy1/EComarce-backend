@@ -16,7 +16,6 @@ const auth = (...Role: TUserRole[]) => {
       token,
       config.access_token as string
     ) as JwtPayload;
-    console.log(decoded);
     const { id, email, role, iat } = decoded as JwtPayload;
     const userName = await User.findOne({ _id: id });
     const userEmail = await User.findOne({ email });

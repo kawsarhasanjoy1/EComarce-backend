@@ -18,12 +18,35 @@ const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* (
     const result = yield modal_1.default.create(payload);
     return result;
 });
-const findDataFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield modal_1.default.find().populate("userId");
+const findDataFromDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const queryUrl = payload.query;
+    let modifyQuery = {};
+    if (queryUrl.category) {
+        modifyQuery.category = queryUrl.category;
+    }
+    if (queryUrl.rating) {
+        modifyQuery.ratingAverage = { $gte: Number(queryUrl.rating) };
+    }
+    if (queryUrl.price) {
+        modifyQuery.price = {
+            $lte: Number(queryUrl.price),
+        };
+    }
+    const result = yield modal_1.default.find(modifyQuery).populate("userId");
+    return result;
+});
+const findDataFromDbIsFlash = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield modal_1.default.find({ isFlash: true });
     return result;
 });
 const findSingleDataFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield modal_1.default.findById(id).populate("reviews");
+    const result = yield modal_1.default.findById(id).populate({
+        path: "reviews",
+        populate: [
+            { path: "userId", model: "user" },
+            { path: "productId", model: "product" },
+        ],
+    });
     return result;
 });
 const upProduct = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -39,6 +62,7 @@ const deleteProduct = (id) => __awaiter(void 0, void 0, void 0, function* () {
 exports.ProductService = {
     createProduct,
     findDataFromDb,
+    findDataFromDbIsFlash,
     findSingleDataFromDb,
     upProduct,
     deleteProduct,

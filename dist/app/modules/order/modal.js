@@ -3,12 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 // Define the schema for TOrder
 const OrderSchema = new mongoose_1.Schema({
-    userId: { type: mongoose_1.Schema.Types.ObjectId, required: true, ref: "user" },
-    productId: { type: mongoose_1.Schema.Types.ObjectId, required: true, ref: "product" },
-    status: {
-        type: String,
-        required: true,
-        enum: ["pending", "paid", "canceled"],
+    paymentId: { type: String, required: true },
+    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "user" }, // Assuming 'User' is your user model
+    email: { type: String, required: true },
+    price: { type: Number, required: true },
+    quantity: { type: Number, required: true },
+    productId: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "product" }], // Assuming 'Product' is your product model
+    userInfo: {
+        name: { type: String, required: true },
+        number: { type: String, required: true },
+        district: { type: String, required: true },
+        subdistrict: { type: String, required: true },
     },
 }, {
     timestamps: true,

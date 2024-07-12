@@ -23,7 +23,6 @@ const auth = (...Role) => {
             throw new Error("Unauthorize user");
         }
         const decoded = jsonwebtoken_1.default.verify(token, config_1.default.access_token);
-        console.log(decoded);
         const { id, email, role, iat } = decoded;
         const userName = yield modal_1.default.findOne({ _id: id });
         const userEmail = yield modal_1.default.findOne({ email });

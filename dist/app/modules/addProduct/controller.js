@@ -26,10 +26,18 @@ const createProduct = (0, catchAsync_1.default)((req, res, next) => __awaiter(vo
     });
 }));
 const findDataFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield service_1.ProductService.findDataFromDb();
+    const result = yield service_1.ProductService.findDataFromDb(req);
     (0, sendResponse_1.default)(res, {
-        statusCode: 201,
+        statusCode: 200,
         message: "Product retrieve successful",
+        data: result,
+    });
+}));
+const findDataFromDbIsFlash = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield service_1.ProductService.findDataFromDbIsFlash();
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        message: "Flash sale retrieve successful",
         data: result,
     });
 }));
@@ -37,7 +45,7 @@ const findSingleDataFromDb = (0, catchAsync_1.default)((req, res, next) => __awa
     const id = req.params.id;
     const result = yield service_1.ProductService.findSingleDataFromDb(id);
     (0, sendResponse_1.default)(res, {
-        statusCode: 201,
+        statusCode: 200,
         message: "Single Product retrieve successful",
         data: result,
     });
@@ -47,7 +55,7 @@ const upProduct = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0
     const Product = req.body;
     const result = yield service_1.ProductService.upProduct(id, Product);
     (0, sendResponse_1.default)(res, {
-        statusCode: 201,
+        statusCode: 200,
         message: "Product updated successful",
         data: result,
     });
@@ -56,12 +64,13 @@ const deleteProduct = (0, catchAsync_1.default)((req, res, next) => __awaiter(vo
     const id = req.params.id;
     const result = yield service_1.ProductService.deleteProduct(id);
     (0, sendResponse_1.default)(res, {
-        statusCode: 201,
+        statusCode: 200,
         message: "Product deleted successful",
         data: result,
     });
 }));
 exports.ProductController = {
+    findDataFromDbIsFlash,
     createProduct,
     findDataFromDb,
     findSingleDataFromDb,

@@ -4,6 +4,7 @@ import productRouter from "../modules/addProduct/route";
 import reviewRouter from "../modules/review/route";
 import orderRouter from "../modules/order/route";
 import loginRouter from "../modules/auth/route";
+import paymentRouter from "../modules/payment/route";
 
 const router = Router();
 
@@ -27,6 +28,10 @@ const RoutePath = [
   {
     path: "/api/v1",
     route: loginRouter,
+  },
+  {
+    path: "/api/v1",
+    route: paymentRouter,
   },
 ];
 

@@ -6,12 +6,18 @@ import { USER_ROLE } from "../../constance/constance";
 const reviewRouter = Router();
 
 reviewRouter.post("/review", ReviewController.createReview);
+reviewRouter.get("/reviews", ReviewController.findDataFromDb);
 reviewRouter.get(
-  "/review",
+  "/admin-reviews",
   auth(USER_ROLE.admin, USER_ROLE.superAdmin),
-  ReviewController.findDataFromDb
+  ReviewController.findDataFromDbForAdmin
 );
 reviewRouter.get("/review/:id", ReviewController.findSingleDataFromDb);
+reviewRouter.get(
+  "/user-review/:id",
+  auth(USER_ROLE.user),
+  ReviewController.findSingleReviewWithUserId
+);
 reviewRouter.delete(
   "/delete-review",
   auth(USER_ROLE.admin, USER_ROLE.superAdmin),

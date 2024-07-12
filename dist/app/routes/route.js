@@ -9,6 +9,7 @@ const route_2 = __importDefault(require("../modules/addProduct/route"));
 const route_3 = __importDefault(require("../modules/review/route"));
 const route_4 = __importDefault(require("../modules/order/route"));
 const route_5 = __importDefault(require("../modules/auth/route"));
+const route_6 = __importDefault(require("../modules/payment/route"));
 const router = (0, express_1.Router)();
 const RoutePath = [
     {
@@ -30,6 +31,10 @@ const RoutePath = [
     {
         path: "/api/v1",
         route: route_5.default,
+    },
+    {
+        path: "/api/v1",
+        route: route_6.default,
     },
 ];
 RoutePath.map((route) => router.use(route.path, route.route));

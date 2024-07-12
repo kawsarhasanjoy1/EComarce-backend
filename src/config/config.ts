@@ -9,5 +9,6 @@ export default {
   hash_pass: process.env.HASH_PASS,
   access_token: process.env.ACCESS_TOKEN,
   expireIn: process.env.EXPIREIN,
-  node_env: process.env.NODE_ENV
+  node_env: process.env.NODE_ENV,
+  stripe_sk: process.env.STRIPE_SK,
 };

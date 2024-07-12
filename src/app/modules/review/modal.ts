@@ -2,13 +2,19 @@ import { Schema, model } from "mongoose";
 import { TReview, TReviewModel } from "./interface";
 import Product from "../addProduct/modal";
 
-const reviewSchema = new Schema<TReview>({
-  description: { type: String, required: true },
-  rating: { type: Number, required: true },
-  userId: { type: Schema.Types.ObjectId, ref: "user" },
-  productId: { type: Schema.Types.ObjectId, ref: "product" },
-});
-
+const reviewSchema = new Schema<TReview>(
+  {
+    description: { type: String, required: true },
+    rating: { type: Number, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "user" },
+    productId: { type: Schema.Types.ObjectId, ref: "product" },
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+reviewSchema.index({ productId: 1, userId: 1 }, { unique: true });
 reviewSchema.statics.calcAverageRatings = async function (
   productId: Schema.Types.ObjectId
 ) {

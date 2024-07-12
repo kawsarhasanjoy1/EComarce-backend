@@ -19,12 +19,10 @@ const sendResponse_1 = __importDefault(require("../../../shared/utils/sendRespon
 const createUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     const result = yield service_1.userService.createUser(data);
-    console.log(result);
     const user = {
         _id: result === null || result === void 0 ? void 0 : result._id,
         name: result.name,
         email: result.email,
-        image: result.image,
         role: result.role,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -37,6 +35,14 @@ const createUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 
 }));
 const findDataFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield service_1.userService.findDataFromDb();
+    (0, sendResponse_1.default)(res, {
+        statusCode: 201,
+        message: "User retrieve successful",
+        data: result,
+    });
+}));
+const findAdminFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield service_1.userService.findAdminFromDb();
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
         message: "User retrieve successful",
@@ -62,6 +68,16 @@ const upUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, v
         data: result,
     });
 }));
+const upRole = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const { role } = req.body;
+    const result = yield service_1.userService.upRole(id, role);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 201,
+        message: "User role updated successful",
+        data: result,
+    });
+}));
 const deleteUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const result = yield service_1.userService.deleteUser(id);
@@ -74,7 +90,9 @@ const deleteUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 
 exports.userController = {
     createUser,
     findDataFromDb,
+    findAdminFromDb,
     findSingleDataFromDb,
     upUser,
+    upRole,
     deleteUser,
 };

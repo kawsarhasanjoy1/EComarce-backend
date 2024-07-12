@@ -7,12 +7,11 @@ const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body;
     const result = await userService.createUser(data);
-    console.log(result)
+
     const user = {
       _id: result?._id,
       name: result.name,
       email: result.email,
-      image: result.image,
       role: result.role,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -27,6 +26,16 @@ const createUser = catchAsync(
 const findDataFromDb = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await userService.findDataFromDb();
+    sentResponse(res, {
+      statusCode: 201,
+      message: "User retrieve successful",
+      data: result,
+    });
+  }
+);
+const findAdminFromDb = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const result = await userService.findAdminFromDb();
     sentResponse(res, {
       statusCode: 201,
       message: "User retrieve successful",
@@ -57,6 +66,18 @@ const upUser = catchAsync(
     });
   }
 );
+const upRole = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    const { role } = req.body;
+    const result = await userService.upRole(id, role);
+    sentResponse(res, {
+      statusCode: 201,
+      message: "User role updated successful",
+      data: result,
+    });
+  }
+);
 const deleteUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
@@ -72,7 +93,9 @@ const deleteUser = catchAsync(
 export const userController = {
   createUser,
   findDataFromDb,
+  findAdminFromDb,
   findSingleDataFromDb,
   upUser,
+  upRole,
   deleteUser,
 };

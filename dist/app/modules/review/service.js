@@ -32,8 +32,27 @@ const findDataFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log(err);
     }
 });
+const findDataFromDbForAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield modal_1.default.find()
+            .populate({ path: "userId" })
+            .populate({ path: "productId" });
+        return result;
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 const findSingleDataFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield modal_1.default.findById(id).populate("userId");
+    const result = yield modal_1.default.findById(id)
+        .populate({ path: "userId" })
+        .populate({ path: "productId" });
+    return result;
+});
+const findSingleReviewWithUserId = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield modal_1.default.find({ userId: id })
+        .populate({ path: "userId" })
+        .populate({ path: "productId" });
     return result;
 });
 const deleteReview = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -43,6 +62,8 @@ const deleteReview = (id) => __awaiter(void 0, void 0, void 0, function* () {
 exports.ReviewService = {
     createReview,
     findDataFromDb,
+    findDataFromDbForAdmin,
     findSingleDataFromDb,
+    findSingleReviewWithUserId,
     deleteReview,
 };

@@ -12,21 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const bcrypt_1 = __importDefault(require("bcrypt"));
+exports.paymentServices = void 0;
 const config_1 = __importDefault(require("../../../config/config"));
-const constance_1 = require("../../constance/constance");
-const userSchema = new mongoose_1.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, enum: [constance_1.USER_ROLE.user, constance_1.USER_ROLE.admin, constance_1.USER_ROLE.superAdmin], default: "user" },
-    // image: { type: String, required: true },
-}, { timestamps: true });
-userSchema.pre("save", function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        this.password = yield bcrypt_1.default.hash(this.password, Number(config_1.default.hash_pass));
+const stripe = require("stripe")(config_1.default.stripe_sk);
+const createPayment = (price) => __awaiter(void 0, void 0, void 0, function* () {
+    const amount = Number(price) * 100;
+    const paymentIntent = yield stripe.paymentIntents.create({
+        amount: amount,
+        currency: "usd",
+        payment_method_types: ["card"],
     });
+    return paymentIntent.client_secret;
 });
-const User = (0, mongoose_1.model)("user", userSchema);
-exports.default = User;
+exports.paymentServices = {
+    createPayment,
+};

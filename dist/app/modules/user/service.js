@@ -26,6 +26,10 @@ const findDataFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield modal_1.default.find();
     return result;
 });
+const findAdminFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield modal_1.default.find({ role: 'admin' });
+    return result;
+});
 const findSingleDataFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield modal_1.default.findById(id);
     return result;
@@ -37,6 +41,12 @@ const upUser = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return result;
 });
+const upRole = (id, role) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield modal_1.default.findOneAndUpdate({ _id: id }, { role }, {
+        new: true,
+    });
+    return result;
+});
 const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = modal_1.default.findByIdAndDelete(id);
     return result;
@@ -44,7 +54,9 @@ const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
 exports.userService = {
     createUser,
     findDataFromDb,
+    findAdminFromDb,
     findSingleDataFromDb,
     upUser,
+    upRole,
     deleteUser,
 };

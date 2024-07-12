@@ -25,6 +25,16 @@ const findDataFromDb = catchAsync(
     });
   }
 );
+const findDataFromDbForAdmin = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const result = await ReviewService.findDataFromDb();
+    sentResponse(res, {
+      statusCode: 201,
+      message: "Review retrieve successful",
+      data: result,
+    });
+  }
+);
 const findSingleDataFromDb = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
@@ -32,6 +42,17 @@ const findSingleDataFromDb = catchAsync(
     sentResponse(res, {
       statusCode: 201,
       message: "Single Review retrieve successful",
+      data: result,
+    });
+  }
+);
+const findSingleReviewWithUserId = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    const result = await ReviewService.findSingleReviewWithUserId(id);
+    sentResponse(res, {
+      statusCode: 201,
+      message: "Single user Review retrieve successful",
       data: result,
     });
   }
@@ -52,6 +73,8 @@ const deleteReview = catchAsync(
 export const ReviewController = {
   createReview,
   findDataFromDb,
+  findDataFromDbForAdmin,
   findSingleDataFromDb,
+  findSingleReviewWithUserId,
   deleteReview,
 };

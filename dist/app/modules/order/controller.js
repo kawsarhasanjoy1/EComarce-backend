@@ -18,6 +18,7 @@ const sendResponse_1 = __importDefault(require("../../../shared/utils/sendRespon
 const services_1 = require("./services");
 const createOrder = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
+    console.log(data);
     const result = yield services_1.OrderService.createOrder(data);
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
@@ -44,10 +45,27 @@ const findSingleDataFromDb = (0, catchAsync_1.default)((req, res, next) => __awa
 }));
 const findDataWithEmailFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const email = req.params.email;
-    const result = yield services_1.OrderService.findSingleDataFromDb(email);
+    const result = yield services_1.OrderService.findDataWithEmailFromDb(email);
     (0, sendResponse_1.default)(res, {
-        statusCode: 201,
+        statusCode: 200,
         message: " Order retrieve successful with email",
+        data: result,
+    });
+}));
+const findUserStatsFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const email = req.params.email;
+    const result = yield services_1.OrderService.findUserStatsFromDb(email);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        message: "User total price fetch successful with email",
+        data: result,
+    });
+}));
+const findAdminStatsFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield services_1.OrderService.findAdminStatsFromDb();
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        message: "Admin total price fetch successful ",
         data: result,
     });
 }));
@@ -66,4 +84,6 @@ exports.OrderController = {
     findSingleDataFromDb,
     deleteOrder,
     findDataWithEmailFromDb,
+    findUserStatsFromDb,
+    findAdminStatsFromDb
 };

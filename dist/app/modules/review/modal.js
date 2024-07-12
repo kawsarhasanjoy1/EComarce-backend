@@ -19,7 +19,11 @@ const reviewSchema = new mongoose_1.Schema({
     rating: { type: Number, required: true },
     userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "user" },
     productId: { type: mongoose_1.Schema.Types.ObjectId, ref: "product" },
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
 });
+reviewSchema.index({ productId: 1, userId: 1 }, { unique: true });
 reviewSchema.statics.calcAverageRatings = function (productId) {
     return __awaiter(this, void 0, void 0, function* () {
         const stats = yield this.aggregate([

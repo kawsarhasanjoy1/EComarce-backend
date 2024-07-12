@@ -33,12 +33,29 @@ const findDataFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(v
         data: result,
     });
 }));
+const findDataFromDbForAdmin = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield service_1.ReviewService.findDataFromDb();
+    (0, sendResponse_1.default)(res, {
+        statusCode: 201,
+        message: "Review retrieve successful",
+        data: result,
+    });
+}));
 const findSingleDataFromDb = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const result = yield service_1.ReviewService.findSingleDataFromDb(id);
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
         message: "Single Review retrieve successful",
+        data: result,
+    });
+}));
+const findSingleReviewWithUserId = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const result = yield service_1.ReviewService.findSingleReviewWithUserId(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: 201,
+        message: "Single user Review retrieve successful",
         data: result,
     });
 }));
@@ -54,6 +71,8 @@ const deleteReview = (0, catchAsync_1.default)((req, res, next) => __awaiter(voi
 exports.ReviewController = {
     createReview,
     findDataFromDb,
+    findDataFromDbForAdmin,
     findSingleDataFromDb,
+    findSingleReviewWithUserId,
     deleteReview,
 };

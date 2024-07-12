@@ -5,7 +5,7 @@ export type TUser = {
   email: string;
   password: string;
   role: "user" | "admin" | 'superAdmin';
-  image: string;
+  // image: string;
 };
 
 export type TUserRole = keyof typeof USER_ROLE;
