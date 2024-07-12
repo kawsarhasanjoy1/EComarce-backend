@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -w",
+    
     "dev": "ts-node-dev --respawn --transpile-only ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
