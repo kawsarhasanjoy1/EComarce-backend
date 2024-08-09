@@ -6,7 +6,7 @@ import { OrderService } from "./services";
 const createOrder = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body;
-    console.log(data);
+    (data);
     const result = await OrderService.createOrder(data);
 
     sentResponse(res, {

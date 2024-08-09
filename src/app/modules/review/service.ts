@@ -17,18 +17,18 @@ const findDataFromDb = async () => {
 
     return result;
   } catch (err) {
-    console.log(err);
+    err;
   }
 };
+
 const findDataFromDbForAdmin = async () => {
   try {
     const result = await Review.find()
       .populate({ path: "userId" })
       .populate({ path: "productId" });
-
     return result;
   } catch (err) {
-    console.log(err);
+    err;
   }
 };
 

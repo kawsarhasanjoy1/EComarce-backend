@@ -11,7 +11,7 @@ const GlobalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = 500;
   let message = err?.message || "something went wrong";
   let errorMessage = err?.message || "something went wrong";
-  console.log(err?.message)
+  (err?.message)
   if (err?.code == 11000) {
     const simplified = HandleMongoose(err);
     message = simplified?.message;

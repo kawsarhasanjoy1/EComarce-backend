@@ -15,6 +15,11 @@ productRouter.get(
   //   auth(USER_ROLE.admin),
   ProductController.findDataFromDb
 );
+productRouter.get(
+  "/top-products",
+  //   auth(USER_ROLE.admin),
+  ProductController.findSortProductWithTopRating
+);
 productRouter.get("/flash-sale", ProductController.findDataFromDbIsFlash);
 productRouter.get("/product/:id", ProductController.findSingleDataFromDb);
 productRouter.patch(

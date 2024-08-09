@@ -10,10 +10,10 @@ async function main() {
     await mongoose.connect(config.mongodb_url as string);
     app.listen(config.port, () => {
       superAdmin();
-      console.log(`Example app listening on port ${config.port}`);
+      (`Example app listening on port ${config.port}`);
     });
   } catch (err) {
-    console.log(err);
+    (err);
   }
 }
 

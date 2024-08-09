@@ -8,6 +8,8 @@ export type TProduct = {
   name: string;
   category: string;
   price: number;
+  discountPrice: number;
+  stock: number;
   image: string;
   description: string;
   isFlash: boolean;

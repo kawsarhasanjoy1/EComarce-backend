@@ -24,8 +24,19 @@ const findDataFromDb = async (payload: any) => {
   const result = await Product.find(modifyQuery).populate("userId");
   return result;
 };
+
+const findSortProductWithTopRating = async () => {
+  try {
+    const result: any = await Product.find().sort({ ratingAverage: -1 }).limit(6);
+    console.log(result);
+    return result;
+  } catch (err) {
+    err;
+  }
+};
+
 const findDataFromDbIsFlash = async () => {
-  const result = await Product.find({ isFlash: true });
+  const result = await Product.find({ isFalse: true });
   return result;
 };
 const findSingleDataFromDb = async (id: string) => {
@@ -58,4 +69,5 @@ export const ProductService = {
   findSingleDataFromDb,
   upProduct,
   deleteProduct,
+  findSortProductWithTopRating,
 };

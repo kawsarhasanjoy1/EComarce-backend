@@ -20,6 +20,7 @@ const productSchema = new Schema<TProduct>(
       type: Number,
       required: true,
     },
+    discountPrice: { type: Number, default: 0 },
     image: {
       type: String,
       required: true,
@@ -45,6 +46,7 @@ const productSchema = new Schema<TProduct>(
       type: Number,
       default: 4.5,
     },
+    stock: { type: Number, default: 0 },
     ratingQuantity: {
       type: Number,
       default: 0,

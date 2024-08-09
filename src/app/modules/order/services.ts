@@ -15,7 +15,7 @@ const findDataFromDb = async () => {
 
     return result;
   } catch (err) {
-    console.log(err);
+    (err);
   }
 };
 
@@ -50,6 +50,7 @@ const findUserStatsFromDb = async (email: string) => {
 };
 const findAdminStatsFromDb = async () => {
   const order: any = await Order.find().populate("productId");
+  console.log(order)
   const orderDetails = await Order.aggregate([
     { $unwind: "$productId" },
     {
@@ -70,7 +71,7 @@ const findAdminStatsFromDb = async () => {
     },
   ]);
 
-  console.log(orderDetails);
+  (orderDetails);
 
 
 

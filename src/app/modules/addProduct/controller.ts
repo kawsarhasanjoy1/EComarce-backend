@@ -6,6 +6,7 @@ import { ProductService } from "./service";
 const createProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const data = req.body;
+    data;
     const result = await ProductService.createProduct(data);
 
     sentResponse(res, {
@@ -21,6 +22,16 @@ const findDataFromDb = catchAsync(
     sentResponse(res, {
       statusCode: 200,
       message: "Product retrieve successful",
+      data: result,
+    });
+  }
+);
+const findSortProductWithTopRating = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const result = await ProductService.findSortProductWithTopRating();
+    sentResponse(res, {
+      statusCode: 200,
+      message: "Top product retrieve successful",
       data: result,
     });
   }
@@ -75,6 +86,7 @@ export const ProductController = {
   createProduct,
   findDataFromDb,
   findSingleDataFromDb,
+  findSortProductWithTopRating,
   upProduct,
   deleteProduct,
 };

@@ -25,7 +25,6 @@ const findSingleDataFromDb = async (id: string) => {
 };
 
 const upUser = async (id: string, payload: Partial<TUser>) => {
-  console.log(id, payload);
   const result = await User.findByIdAndUpdate(id, payload, {
     new: true,
   });
